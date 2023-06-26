@@ -8,6 +8,7 @@ public class DiceManager : SingletonMonoBehaviour<DiceManager>
     public List<DieProcessor> diceList;
 
     public DieProcessor farthestDie { get; private set; }
+    public float farthestDieSpeed { get { return farthestDie.rigidbody.velocity.magnitude; } }
     public DieProcessor closestDie { get; private set; }
 
     public event Action<int, Vector3> ShowResults;
@@ -16,7 +17,10 @@ public class DiceManager : SingletonMonoBehaviour<DiceManager>
     {
         foreach (DieProcessor die in diceList) die.Roll();
     }
-
+    private void FixedUpdate()
+    {
+        Debug.Log(farthestDieSpeed);
+    }
     private void Start()
     {
         foreach (DieProcessor die in diceList) { die.transform.SetParent(null); }
