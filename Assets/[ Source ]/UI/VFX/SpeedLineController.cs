@@ -9,6 +9,9 @@ public class SpeedLineController : MonoBehaviour
     private SpriteRenderer image;
     private Color imageColor;
 
+    private float maxSpeedReached = 0;
+    private float currentSpeed = 0;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -19,8 +22,13 @@ public class SpeedLineController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = DiceManager.Instance.farthestDieSpeed;
-        animator.SetFloat("SpeedMultiplier", (speed / 2) * -1);
-        image.color = new Color(imageColor.r, imageColor.g, imageColor.b, speed / 6);
+        GetSpeeds();
+        image.color = new Color(imageColor.r, imageColor.g, imageColor.b, currentSpeed / maxSpeedReached);
+    }
+
+    private void GetSpeeds()
+    {
+        currentSpeed = DiceManager.Instance.farthestDieSpeed;
+        if (currentSpeed > maxSpeedReached) maxSpeedReached = currentSpeed;
     }
 }

@@ -17,10 +17,6 @@ public class DiceManager : SingletonMonoBehaviour<DiceManager>
     {
         foreach (DieProcessor die in diceList) die.Roll();
     }
-    private void FixedUpdate()
-    {
-        Debug.Log(farthestDieSpeed);
-    }
     private void Start()
     {
         foreach (DieProcessor die in diceList) { die.transform.SetParent(null); }
